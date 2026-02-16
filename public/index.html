@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Severy Crypto Live Price</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+* {
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Orbitron', sans-serif;
+}
+
+body {
+  background:#0a0a0f;
+  color:#00f7ff;
+  display:flex;
+  justify-content:center;
+}
+
+.container {
+  width:100%;
+  max-width:420px;
+  padding:20px;
+}
+
+h1 {
+  text-align:center;
+  margin-bottom:20px;
+  font-size:18px;
+}
+
+.card {
+  background:#111;
+  padding:20px;
+  border-radius:20px;
+  box-shadow:0 0 20px rgba(0,255,255,0.2);
+}
+
+input {
+  width:100%;
+  padding:12px;
+  border-radius:12px;
+  border:none;
+  margin-bottom:15px;
+}
+
+button {
+  width:100%;
+  padding:12px;
+  border:none;
+  border-radius:12px;
+  background:#00f7ff;
+  color:black;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+canvas {
+  margin-top:20px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1>Severy Crypto Live Price</h1>
+
+  <div class="card">
+    <input id="coinInput" placeholder="bitcoin / ethereum" />
+    <button onclick="loadChart()">Show Chart</button>
+
+    <canvas id="chart"></canvas>
+  </div>
+</div>
+
+<script>
+let chart;
+
+async function loadChart() {
+  const coin = document.getElementById("coinInput").value;
+  const res = await fetch(`/api/price/${coin}`);
+  const data = await res.json();
+
+  const prices = data.prices.map(p => p[1]);
+  const labels = data.prices.map(p => {
+    const d = new Date(p[0]);
+    return d.getDate()+"/"+(d.getMonth()+1);
+  });
+
+  const ctx = document.getElementById("chart").getContext("2d");
+
+  if (chart) chart.destroy();
+
+  chart = new Chart(ctx, {
+    type: "line",
+    data: {
+      labels: labels,
+      datasets: [{
+        label: coin.toUpperCase(),
+        data: prices,
+        borderColor: "#00f7ff",
+        backgroundColor: "rgba(0,247,255,0.1)",
+        tension: 0.3,
+        fill: true
+      }]
+    },
+    options: {
+      responsive:true,
+      plugins:{legend:{display:true}},
+      scales:{
+        x:{ticks:{color:"#00f7ff"}},
+        y:{ticks:{color:"#00f7ff"}}
+      }
+    }
+  });
+}
+</script>
+
+</body>
+</html>
