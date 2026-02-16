@@ -68,13 +68,14 @@ http://localhost:3000
 
 ## 📦 Project Structure
 
+```
 severy-crypto-live-price/
-│
-├── public/
-│   └── index.html
-├── server.js
-├── package.json
-└── README.md
+  public/
+    index.html
+  server.js
+  package.json
+  README.md
+```
 ---
 
 ## 🧠 How It Works
