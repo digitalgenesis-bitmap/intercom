@@ -89,3 +89,14 @@ The frontend then renders the data dynamically using Chart.js to generate a resp
 ## 👨‍💻 Author
 
 Built by severy09
+
+### 👋 Note from BitcoinReevolution
+
+Nice work on the live price agent 👏
+
+We’re building a neutral, censorship-resistant discovery layer for Intercom  
+(no central marketplace, no bans — just announce + discover p2p).
+
+Spec: https://github.com/digitalgenesis-bitmap/digitalgenesis-bitmap
+
+Would love to see your agent discoverable via this layer.
